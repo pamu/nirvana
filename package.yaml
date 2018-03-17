@@ -1,0 +1,47 @@
+name:                nirvana
+version:             0.1.0.0
+github:              "pamu/nirvana"
+license:             BSD3
+author:              "Pamu"
+maintainer:          "cto@nextabc.org"
+copyright:           "2018 pamu"
+
+extra-source-files:
+- README.md
+
+synopsis:            nextabc frontend
+category:            Web, Datastructures
+
+description:         Please see the README on Github at <https://github.com/pamu/nirvana#readme>
+
+dependencies:
+- base >= 4.7 && < 5
+- miso
+- containers
+- aeson
+- servant
+
+library:
+  source-dirs: src
+
+executables:
+  nirvana:
+    main:                Main.hs
+    source-dirs:         app
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - nirvana
+
+tests:
+  nirvana-test:
+    main:                Spec.hs
+    source-dirs:         test
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - nirvana
