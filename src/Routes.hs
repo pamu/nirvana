@@ -11,20 +11,20 @@ import Data.Proxy
 import Miso
 import Action
 
-type API = Home :<|> Person
+type API = Home :<|> Course
 
 type Home = View Action
 
-type Person = "#persons" :> Capture "personName" String :> View Action
+type Course = "#courses" :> Capture "courseName" String :> View Action
 
 goHomePage :: Action
 goHomePage = ChangeURI (safeLink api home)
 
-gotoPersonPage :: String -> Action
-gotoPersonPage name = ChangeURI (safeLink api person name)
+gotoCoursePage :: String -> Action
+gotoCoursePage name = ChangeURI (safeLink api course name)
 
 home = Proxy :: Proxy Home
 
-person = Proxy :: Proxy Person
+course = Proxy :: Proxy Course
 
 api = Proxy :: Proxy API
