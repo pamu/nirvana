@@ -5,8 +5,8 @@
 {-# LANGUAGE TypeFamilies #-}
 {-# LANGUAGE CPP #-}
 
-module View.CoursePage where
-    
+module View.Navbar where
+
 import Action
 import Data.Proxy
 import Miso
@@ -15,9 +15,5 @@ import Model
 import Routes
 import Servant.API
 
-coursePage name (_ :: Model) =
-    div_ [] [
-      div_ [] [
-        text $ ms ("awesome! " ++ show name)],
-        button_ [onClick goHomePage] [text "go home"]
-      ]
+navbar :: Model -> View Action
+navbar (_:: Model) = div_ [] []

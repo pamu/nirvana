@@ -16,8 +16,9 @@ import Routes
 import Servant.API
 import View.NotFound
 
-import View.HomePage
-import View.CoursePage
+import View.Root
+import View.HomePageComponent
+import View.CoursePageComponent
 
 render :: Model -> View Action
 render model = either (const notFoundPage) id $ result model
@@ -25,3 +26,9 @@ render model = either (const notFoundPage) id $ result model
 
 handlers :: (Model -> View Action) :<|> (String -> Model -> View Action)
 handlers = homePage :<|> coursePage
+
+homePage :: Model -> View Action
+homePage model = root model $ homePageComponent model
+
+coursePage :: String -> Model -> View Action
+coursePage name model = root model $ coursePageComponent name model
