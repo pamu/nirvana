@@ -1,9 +1,9 @@
-{-# LANGUAGE ScopedTypeVariables #-}
-{-# LANGUAGE OverloadedStrings #-}
-{-# LANGUAGE TypeOperators #-}
-{-# LANGUAGE DataKinds #-}
-{-# LANGUAGE TypeFamilies #-}
 {-# LANGUAGE CPP #-}
+{-# LANGUAGE DataKinds #-}
+{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE ScopedTypeVariables #-}
+{-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE TypeOperators #-}
 
 module View.CoursePageComponent where
 
@@ -16,8 +16,8 @@ import Routes
 import Servant.API
 
 coursePageComponent name (_ :: Model) =
-    div_ [] [
-      div_ [] [
-        text $ ms ("awesome! " ++ show name)],
-        button_ [onClick goHomePage] [text "go home"]
-      ]
+  div_
+    []
+    [ div_ [] [text $ ms ("awesome! " ++ show name)]
+    , button_ [onClick gotoHomePage] [text "go home"]
+    ]

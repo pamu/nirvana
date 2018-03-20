@@ -5,20 +5,17 @@
 {-# LANGUAGE TypeFamilies #-}
 {-# LANGUAGE TypeOperators #-}
 
-module View.NotFound where
+module View.LandingPageComponent where
 
 import Action
+import Data.Char
 import Data.Proxy
 import Miso
-import Miso.String
+import Miso.String (MisoString)
+import qualified Miso.String as S
 import Model
 import Routes
 import Servant.API
 
-notFoundPage :: View Action
-notFoundPage =
-  div_
-    []
-    [ text "Oops! Requested url not found!"
-    , div_ [] [button_ [class_ "btn", onClick gotoHomePage] [text "go home"]]
-    ]
+landingPageComponent :: Model -> View Action
+landingPageComponent model = div_ [] []

@@ -1,10 +1,10 @@
-{-# LANGUAGE ScopedTypeVariables #-}
-{-# LANGUAGE OverloadedStrings #-}
-{-# LANGUAGE TypeOperators #-}
-{-# LANGUAGE DataKinds #-}
-{-# LANGUAGE RecordWildCards #-}
-{-# LANGUAGE TypeFamilies #-}
 {-# LANGUAGE CPP #-}
+{-# LANGUAGE DataKinds #-}
+{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE ScopedTypeVariables #-}
+{-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE TypeOperators #-}
 
 module Main where
 
@@ -17,7 +17,6 @@ import Miso.String
 import Action
 import ActionHandler
 import Connector
-import Domain
 import Model
 import Routes
 
@@ -25,7 +24,7 @@ import Routes
 main :: IO ()
 main = do
   currentURI <- getCurrentURI
-  startApp App {model = initModel currentURI, initialAction = NoOp, ..}
+  startApp App {model = defaultModel currentURI, initialAction = NoOp, ..}
   where
     update = handle
     events = defaultEvents
