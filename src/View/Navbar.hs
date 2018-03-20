@@ -31,7 +31,7 @@ navbarLoginItem :: Model -> View Action
 navbarLoginItem = navbarItem "Login"
 
 navbarSignUpItem :: Model -> View Action
-navbarSignUpItem = navbarItem "SignUp"
+navbarSignUpItem = navbarItem "Signup"
 
 navbar :: Model -> View Action
 navbar (m :: Model) =

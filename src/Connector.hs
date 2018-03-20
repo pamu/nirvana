@@ -19,6 +19,7 @@ import View.NotFound
 import Domain.CourseId
 
 import View.CoursePageComponent
+import View.CoursesPageComponent
 import View.HomePageComponent
 import View.LandingPageComponent
 import View.LoginPageComponent
@@ -26,12 +27,15 @@ import View.Root
 import View.SignUpPageComponent
 
 render :: Model -> View Action
-render model = either (const notFoundPage) id $ result model
+render model = either (const $ notFoundPage model) id $ result model
   where
+    result :: Model -> Either RoutingError (View Action)
     result = runRoute (Proxy :: Proxy API) handlers
 
-handlers ::
-     (Model -> View Action) :<|> (Model -> View Action) :<|> (Model -> View Action) :<|> (Model -> View Action) :<|> (CourseId -> Model -> View Action)
+notFoundPage :: Model -> View Action
+notFoundPage model = root model $ notFoundPageComponent model
+
+--- type for handlers function is too long. So, lets ignore declaring the type.
 handlers =
   homePage :<|> loginPage :<|> signUpPage :<|> coursesPage :<|> coursePage
 
@@ -45,7 +49,7 @@ signUpPage :: Model -> View Action
 signUpPage model = root model $ signUpPageComponent model
 
 coursesPage :: Model -> View Action
-coursesPage model = error ("todo")
+coursesPage model = root model $ coursesPageComponent model
 
 coursePage :: CourseId -> Model -> View Action
-coursePage name model = root model $ coursePageComponent name model
+coursePage courseId model = root model $ coursePageComponent courseId model

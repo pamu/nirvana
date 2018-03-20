@@ -5,5 +5,5 @@ module Domain.CourseId where
 import Servant.API
 
 newtype CourseId = CourseId
-  { value :: String
+  { courseIdValue :: String
   } deriving (Eq, Show, ToHttpApiData, FromHttpApiData)

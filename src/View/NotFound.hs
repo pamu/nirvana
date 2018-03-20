@@ -15,10 +15,25 @@ import Model
 import Routes
 import Servant.API
 
-notFoundPage :: View Action
-notFoundPage =
+notFoundPageComponent :: Model -> View Action
+notFoundPageComponent model =
   div_
     []
-    [ text "Oops! Requested url not found!"
-    , div_ [] [button_ [class_ "btn", onClick gotoHomePage] [text "go home"]]
+    [ div_
+        [class_ "columns"]
+        [div_ [class_ "column col-xs-4 col-mx-auto"] [emptyState]]
+    ]
+
+emptyState :: View Action
+emptyState =
+  div_
+    [class_ "empty"]
+    [ div_ [class_ "empty-icon"] [i_ [class_ "icon icon-4x icon-stop"] []]
+    , p_ [class_ "empty-title h1"] [text "Oops!"]
+    , p_
+        [class_ "empty-subtitle h4"]
+        [text "The page you are looking for is not available."]
+    , div_
+        [class_ "empty-action"]
+        [button_ [class_ "btn btn-primary", onClick gotoHomePage] [text "Home"]]
     ]

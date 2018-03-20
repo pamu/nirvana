@@ -23,5 +23,5 @@ homePageComponent (_ :: Model) =
     [ div_ [] [text "home"]
     , button_
         [class_ "btn", onClick $ gotoCoursePage $ CourseId "foo"]
-        [text "go about"]
+        [text "Foo course"]
     ]
