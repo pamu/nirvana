@@ -22,9 +22,8 @@ import View.CoursePageComponent
 import View.CoursesPageComponent
 import View.HomePageComponent
 import View.LandingPageComponent
-import View.LoginPageComponent
+import View.LoginSignUpPageComponent
 import View.Root
-import View.SignUpPageComponent
 
 render :: Model -> View Action
 render model = either (const $ notFoundPage model) id $ result model
@@ -36,17 +35,13 @@ notFoundPage :: Model -> View Action
 notFoundPage model = root model $ notFoundPageComponent model
 
 --- type for handlers function is too long. So, lets ignore declaring the type.
-handlers =
-  homePage :<|> loginPage :<|> signUpPage :<|> coursesPage :<|> coursePage
+handlers = homePage :<|> loginSignUpPage :<|> coursesPage :<|> coursePage
 
 homePage :: Model -> View Action
 homePage model = root model $ homePageComponent model
 
-loginPage :: Model -> View Action
-loginPage model = root model $ loginPageComponent model
-
-signUpPage :: Model -> View Action
-signUpPage model = root model $ signUpPageComponent model
+loginSignUpPage :: Model -> View Action
+loginSignUpPage model = root model $ loginSignUpPageComponent model
 
 coursesPage :: Model -> View Action
 coursesPage model = root model $ coursesPageComponent model

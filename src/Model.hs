@@ -1,9 +1,9 @@
 module Model where
 
-import Miso
+import           Miso
 
 data Model = Model
-  { uri :: URI
+  { uri            :: URI
   , isUserLoggedIn :: Bool
   } deriving (Show, Eq)
 

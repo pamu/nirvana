@@ -1,6 +1,6 @@
 module Action where
 
-import Miso
+import           Miso
 
 data Action
   = HandleURI URI

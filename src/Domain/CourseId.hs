@@ -2,7 +2,7 @@
 
 module Domain.CourseId where
 
-import Servant.API
+import           Servant.API
 
 newtype CourseId = CourseId
   { courseIdValue :: String

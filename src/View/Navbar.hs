@@ -16,22 +16,19 @@ import Model
 import Routes
 import Servant.API
 
-navbarItem :: String -> Model -> View Action
-navbarItem name model =
+navbarItem :: String -> String -> Model -> View Action
+navbarItem name href model =
   if isUserLoggedIn model
     then div_ [] []
     else div_
            []
            [ a_
-               [class_ "btn btn-link", href_ (S.toLower . S.pack $ "#" ++ name)]
+               [class_ "btn btn-link", href_ (S.toLower . S.pack $ "#" ++ href)]
                [text (S.pack name)]
            ]
 
-navbarLoginItem :: Model -> View Action
-navbarLoginItem = navbarItem "Login"
-
-navbarSignUpItem :: Model -> View Action
-navbarSignUpItem = navbarItem "Signup"
+navbarLoginSignUpItem :: Model -> View Action
+navbarLoginSignUpItem model = navbarItem "Login/SignUp" "loginsignup" model
 
 navbar :: Model -> View Action
 navbar (m :: Model) =
@@ -51,8 +48,6 @@ navbar (m :: Model) =
                 ]
                 []
             ]
-        , section_
-            [class_ "navbar-section"]
-            [navbarLoginItem m, navbarSignUpItem m]
+        , section_ [class_ "navbar-section"] [navbarLoginSignUpItem m]
         ]
     ]
