@@ -17,12 +17,7 @@ import Servant.API
 
 notFoundPageComponent :: Model -> View Action
 notFoundPageComponent model =
-  div_
-    []
-    [ div_
-        [class_ "columns"]
-        [div_ [class_ "column col-xs-4 col-mx-auto"] [emptyState]]
-    ]
+  div_ [] [div_ [class_ "columns"] [div_ [class_ "column"] [emptyState]]]
 
 emptyState :: View Action
 emptyState =

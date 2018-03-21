@@ -43,6 +43,15 @@ navbar (m :: Model) =
             [class_ "navbar-section"]
             [a_ [class_ "navbar-brand mr-2", href_ "/"] [text "Nextabc"]]
         , section_
+            [class_ "navbar-center"]
+            [ img_
+                [ src_
+                    "https://picturepan2.github.io/spectre/img/spectre-logo.svg"
+                , alt_ "Nextabc"
+                ]
+                []
+            ]
+        , section_
             [class_ "navbar-section"]
             [navbarLoginItem m, navbarSignUpItem m]
         ]
