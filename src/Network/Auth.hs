@@ -5,7 +5,7 @@
 {-# LANGUAGE TypeFamilies #-}
 {-# LANGUAGE TypeOperators #-}
 
-module View.HomePageComponent where
+module Network.Auth where
 
 import Action
 import Data.Proxy
@@ -16,12 +16,4 @@ import Model
 import Routes
 import Servant.API
 
-homePageComponent :: Model -> View Action
-homePageComponent (_ :: Model) =
-  div_
-    []
-    [ div_ [] [text "home"]
-    , button_
-        [class_ "btn", onClick $ gotoCoursePage $ CourseId "foo"]
-        [text "Foo course"]
-    ]
+import JavaScript.Web.XMLHttpRequest

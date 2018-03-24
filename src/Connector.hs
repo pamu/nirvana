@@ -22,8 +22,9 @@ import View.CoursePageComponent
 import View.CoursesPageComponent
 import View.HomePageComponent
 import View.LandingPageComponent
-import View.LoginSignUpPageComponent
-import View.Root
+import View.LoginPageComponent
+import View.MainHolder (mainHolder)
+import View.SignUpPageComponent
 
 render :: Model -> View Action
 render model = either (const $ notFoundPage model) id $ result model
@@ -32,19 +33,24 @@ render model = either (const $ notFoundPage model) id $ result model
     result = runRoute (Proxy :: Proxy API) handlers
 
 notFoundPage :: Model -> View Action
-notFoundPage model = root model $ notFoundPageComponent model
+notFoundPage model = mainHolder model $ notFoundPageComponent model
 
 --- type for handlers function is too long. So, lets ignore declaring the type.
-handlers = homePage :<|> loginSignUpPage :<|> coursesPage :<|> coursePage
+handlers =
+  homePage :<|> loginPage :<|> signUpPage :<|> coursesPage :<|> coursePage
 
 homePage :: Model -> View Action
-homePage model = root model $ homePageComponent model
+homePage model = mainHolder model $ homePageComponent model
 
-loginSignUpPage :: Model -> View Action
-loginSignUpPage model = root model $ loginSignUpPageComponent model
+loginPage :: Model -> View Action
+loginPage model = mainHolder model $ loginPageComponent model
+
+signUpPage :: Model -> View Action
+signUpPage model = mainHolder model $ signUpPageComponent model
 
 coursesPage :: Model -> View Action
-coursesPage model = root model $ coursesPageComponent model
+coursesPage model = mainHolder model $ coursesPageComponent model
 
 coursePage :: CourseId -> Model -> View Action
-coursePage courseId model = root model $ coursePageComponent courseId model
+coursePage courseId model =
+  mainHolder model $ coursePageComponent courseId model

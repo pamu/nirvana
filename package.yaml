@@ -20,6 +20,7 @@ dependencies:
 - containers
 - aeson
 - servant
+- ghcjs-base
 
 library:
   source-dirs: src

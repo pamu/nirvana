@@ -27,8 +27,11 @@ navbarItem name href model =
                [text (S.pack name)]
            ]
 
-navbarLoginSignUpItem :: Model -> View Action
-navbarLoginSignUpItem model = navbarItem "Login/SignUp" "loginsignup" model
+navbarLoginItem :: Model -> View Action
+navbarLoginItem model = navbarItem "Login" "login" model
+
+navbarSignUpItem :: Model -> View Action
+navbarSignUpItem model = navbarItem "Signup" "signup" model
 
 navbar :: Model -> View Action
 navbar (m :: Model) =
@@ -48,6 +51,8 @@ navbar (m :: Model) =
                 ]
                 []
             ]
-        , section_ [class_ "navbar-section"] [navbarLoginSignUpItem m]
+        , section_
+            [class_ "navbar-section"]
+            [navbarLoginItem m, navbarSignUpItem m]
         ]
     ]

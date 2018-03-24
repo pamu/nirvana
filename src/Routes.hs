@@ -15,17 +15,21 @@ import Domain.CourseId
 
 type Home = View Action
 
-type LoginSignUp = "#loginsignup" :> View Action
+type Login = "#login" :> View Action
+
+type SignUp = "#signup" :> View Action
 
 type Courses = "#courses" :> View Action
 
 type Course = "#course" :> Capture "courseId" CourseId :> View Action
 
-type API = Home :<|> LoginSignUp :<|> Courses :<|> Course
+type API = Home :<|> Login :<|> SignUp :<|> Courses :<|> Course
 
 home = Proxy :: Proxy Home
 
-loginsignup = Proxy :: Proxy LoginSignUp
+login = Proxy :: Proxy Login
+
+signUp = Proxy :: Proxy SignUp
 
 courses = Proxy :: Proxy Courses
 
@@ -36,8 +40,11 @@ api = Proxy :: Proxy API
 gotoHomePage :: Action
 gotoHomePage = ChangeURI (safeLink api home)
 
-gotoLoginSignUpPage :: Action
-gotoLoginSignUpPage = ChangeURI (safeLink api loginsignup)
+gotoLoginPage :: Action
+gotoLoginPage = ChangeURI (safeLink api login)
+
+gotoSignUpPage :: Action
+gotoSignUpPage = ChangeURI (safeLink api signUp)
 
 gotoCoursesPage :: Action
 gotoCoursesPage = ChangeURI (safeLink api courses)
