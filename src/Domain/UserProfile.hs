@@ -5,7 +5,7 @@
 {-# LANGUAGE TypeFamilies #-}
 {-# LANGUAGE TypeOperators #-}
 
-module Domain.Core.UserProfile where
+module Domain.UserProfile where
 
 data UserProfile = UserProfile
   { userProfileEmail :: String

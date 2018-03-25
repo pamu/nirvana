@@ -18,7 +18,7 @@ import Servant.API
 
 navbarItem :: String -> String -> Model -> View Action
 navbarItem name href model =
-  if isUserLoggedIn model
+  if userLoggedIn model
     then div_ [] []
     else div_
            []
@@ -31,7 +31,7 @@ navbarLoginItem :: Model -> View Action
 navbarLoginItem model = navbarItem "Login" "login" model
 
 navbarSignUpItem :: Model -> View Action
-navbarSignUpItem model = navbarItem "Signup" "signup" model
+navbarSignUpItem model = navbarItem "Sign Up" "signup" model
 
 navbar :: Model -> View Action
 navbar (m :: Model) =

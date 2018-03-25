@@ -21,6 +21,8 @@ dependencies:
 - aeson
 - servant
 - ghcjs-base
+- bytestring
+- utf8-string
 
 library:
   source-dirs: src

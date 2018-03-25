@@ -1,14 +1,18 @@
 module Model where
 
-import           Miso
+import Miso
 
 data Model = Model
-  { uri            :: URI
-  , isUserLoggedIn :: Bool
+  { uri :: URI
+  , userLoggedIn :: Bool
+  , showLoader :: Bool
+  , showDailog :: Bool
   } deriving (Show, Eq)
 
 defaultModel :: URI -> Model
-defaultModel uri = Model {uri = uri, isUserLoggedIn = False}
+defaultModel uri =
+  Model
+  {uri = uri, userLoggedIn = False, showLoader = False, showDailog = False}
 
 instance HasURI Model where
   lensURI = makeLens getter setter
