@@ -6,28 +6,29 @@
 {-# LANGUAGE TypeFamilies #-}
 {-# LANGUAGE DeriveGeneric, DeriveAnyClass #-}
 
-module Network.HttpReq where
+module Network.AppReq where
 
 import Data.Aeson
 import Data.Aeson.Types
 import qualified Data.ByteString as BS
+import qualified Data.ByteString.Char8 as BSC
 import qualified Data.ByteString.Lazy.UTF8 as LBS
 import GHC.Generics
 import JavaScript.Web.XMLHttpRequest
 import Miso.String as M
-import Network.ServerRes
+import Network.AppRes
 
 post ::
      (ToJSON a, FromJSON b)
   => a
   -> String
   -> Maybe String
-  -> IO (Either String (ServerRes b))
+  -> IO (Either String (AppRes b))
 post input route session = do
   response <- xhrByteString req
   let payload = contents response
   let statusCode = status response
-  pure $ parsed statusCode payload
+  pure $ parseAppReqContent statusCode payload
   where
     req =
       Request
@@ -35,7 +36,7 @@ post input route session = do
       , reqURI = M.pack route
       , reqLogin = Nothing
       , reqHeaders =
-          [(M.pack "Content-type", M.pack "application/json; utf-8")] ++
+          [(M.pack "Content-Type", M.pack "application/json")] ++
           case session of
             Just sid -> [(M.pack "session", M.pack sid)]
             Nothing -> []
@@ -43,6 +44,21 @@ post input route session = do
       , reqData = StringData $ M.pack $ LBS.toString $ encode input
       }
 
-parsed ::
-     (FromJSON a) => Int -> Maybe BS.ByteString -> Either String (ServerRes a)
-parsed status content = Right $ InternalServerError ""
+parseAppReqContent ::
+     (FromJSON a) => Int -> Maybe BS.ByteString -> Either String (AppRes a)
+parseAppReqContent code content =
+  case content of
+    Just a -> helper code a
+    Nothing -> helper code (BSC.pack "")
+
+helper ::
+     forall a. (FromJSON a)
+  => Int
+  -> BS.ByteString
+  -> Either String (AppRes a)
+helper 200 content = Ok <$> (eitherDecodeStrict content :: Either String a)
+helper 400 content =
+  BadRequest <$> (eitherDecodeStrict content :: Either String ValidationError)
+helper 500 content =
+  InternalServerError <$> (eitherDecodeStrict content :: Either String String)
+helper code content = Left ("Bad http response, status code: " ++ show code)

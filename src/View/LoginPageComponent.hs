@@ -10,6 +10,11 @@ module View.LoginPageComponent where
 import Action
 import Data.Proxy
 import Domain.CourseId
+import Domain.UserCredentials
+import Domain.UserEmail
+import Domain.UserEmail
+import Domain.UserPassword
+import Domain.UserPassword
 import Miso
 import Miso.String
 import Model
@@ -36,12 +41,20 @@ loginForm m =
     [ div_
         [class_ "form-group"]
         [ label_ [class_ "form-label"] [text "Email"]
-        , input_ [class_ "form-input", type_ "text"] []
+        , input_
+            [ class_ "form-input"
+            , type_ "text"
+            , onChange (UpdateUserEmail . UserEmail)
+            ]
         ]
     , div_
         [class_ "form-group"]
         [ label_ [class_ "form-label"] [text "Password"]
-        , input_ [class_ "form-input", type_ "password"] []
+        , input_
+            [ class_ "form-input"
+            , type_ "password"
+            , onChange (UpdateUserPassword . UserPassword)
+            ]
         ]
     , div_
         [class_ "columns"]
@@ -49,7 +62,10 @@ loginForm m =
             [class_ "column col-xs-6"]
             [ div_
                 [class_ "form-group float-left"]
-                [button_ [class_ "btn btn-primary"] [text "Login"]]
+                [ button_
+                    [class_ "btn btn-primary", onClick LoginUser]
+                    [text "Login"]
+                ]
             ]
         , div_
             [class_ "column col-xs-6"]

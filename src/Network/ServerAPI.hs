@@ -1,7 +1,7 @@
 module Network.ServerAPI where
 
 baseURL :: String
-baseURL = ""
+baseURL = "http://backx.herokuapp.com"
 
 loginURL :: String
 loginURL = baseURL ++ "/login"

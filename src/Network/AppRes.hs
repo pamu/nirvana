@@ -6,7 +6,7 @@
 {-# LANGUAGE TypeFamilies #-}
 {-# LANGUAGE DeriveGeneric, DeriveAnyClass #-}
 
-module Network.ServerRes where
+module Network.AppRes where
 
 import Data.Aeson
 import Data.Aeson.Types
@@ -15,9 +15,9 @@ import GHC.Generics
 
 newtype ValidationError =
   ValidationError [Map String [String]]
-  deriving (Eq, Show, Generic)
+  deriving (Eq, Show, Generic, FromJSON, ToJSON)
 
-data ServerRes a
+data AppRes a
   = Ok a
   | BadRequest ValidationError
   | InternalServerError String

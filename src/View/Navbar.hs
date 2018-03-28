@@ -8,6 +8,7 @@
 module View.Navbar where
 
 import Action
+import Common.MaybeOps
 import Data.Proxy
 import Miso
 import Miso.String (MisoString)
@@ -18,7 +19,7 @@ import Servant.API
 
 navbarItem :: String -> String -> Model -> View Action
 navbarItem name href model =
-  if userLoggedIn model
+  if (isJust $ userSession model)
     then div_ [] []
     else div_
            []
@@ -49,7 +50,6 @@ navbar (m :: Model) =
                     "https://picturepan2.github.io/spectre/img/spectre-logo.svg"
                 , alt_ "Nextabc"
                 ]
-                []
             ]
         , section_
             [class_ "navbar-section"]

@@ -36,22 +36,22 @@ signUpForm model =
     [ div_
         [class_ "form-group"]
         [ label_ [class_ "form-label"] [text "Name"]
-        , input_ [class_ "form-input", type_ "text"] []
+        , input_ [class_ "form-input", type_ "text"]
         ]
     , div_
         [class_ "form-group"]
         [ label_ [class_ "form-label"] [text "Email"]
-        , input_ [class_ "form-input", type_ "text"] []
+        , input_ [class_ "form-input", type_ "text"]
         ]
     , div_
         [class_ "form-group"]
         [ label_ [class_ "form-label"] [text "Password"]
-        , input_ [class_ "form-input", type_ "password"] []
+        , input_ [class_ "form-input", type_ "password"]
         ]
     , div_
         [class_ "form-group"]
         [ label_ [class_ "form-label"] [text "Repeat Password"]
-        , input_ [class_ "form-input", type_ "password"] []
+        , input_ [class_ "form-input", type_ "password"]
         ]
     , div_
         [class_ "form-group"]
