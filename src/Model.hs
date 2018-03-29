@@ -26,9 +26,3 @@ defaultModel uri =
       UserCredentials
       {email = UserEmail $ S.pack "", password = UserPassword $ S.pack ""}
   }
-
-instance HasURI Model where
-  lensURI = makeLens getter setter
-    where
-      getter = uri
-      setter m u = m {uri = u}

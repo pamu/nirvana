@@ -18,6 +18,7 @@ import View.NotFound
 
 import Domain.CourseId
 
+import Model
 import View.CoursePageComponent
 import View.CoursesPageComponent
 import View.HomePageComponent
@@ -30,7 +31,7 @@ render :: Model -> View Action
 render model = either (const $ notFoundPage model) id $ result model
   where
     result :: Model -> Either RoutingError (View Action)
-    result = runRoute (Proxy :: Proxy API) handlers
+    result = runRoute (Proxy :: Proxy API) handlers uri
 
 notFoundPage :: Model -> View Action
 notFoundPage model = mainHolder model $ notFoundPageComponent model
