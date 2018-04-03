@@ -1,5 +1,6 @@
 module Model where
 
+import qualified Data.Map as Map
 import Domain.UserCredentials
 import Domain.UserEmail
 import Domain.UserPassword
@@ -13,6 +14,8 @@ data Model = Model
   , showLoader :: Bool
   , showDailog :: Maybe String
   , userCredentials :: UserCredentials
+  , validationErrors :: Map.Map String String
+  , serverError :: Maybe String
   } deriving (Show, Eq)
 
 defaultModel :: URI -> Model
@@ -25,4 +28,6 @@ defaultModel uri =
   , userCredentials =
       UserCredentials
       {email = UserEmail $ S.pack "", password = UserPassword $ S.pack ""}
+  , validationErrors = Map.fromList []
+  , serverError = Nothing
   }

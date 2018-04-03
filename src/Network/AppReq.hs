@@ -18,6 +18,34 @@ import JavaScript.Web.XMLHttpRequest
 import Miso.String as M
 import Network.AppRes
 
+getRequest route session =
+  Request
+  { reqMethod = GET
+  , reqURI = M.pack route
+  , reqLogin = Nothing
+  , reqHeaders =
+      [(M.pack "Content-Type", M.pack "application/json")] ++
+      case session of
+        Just sid -> [(M.pack "session", M.pack sid)]
+        Nothing -> []
+  , reqWithCredentials = False
+  , reqData = NoData
+  }
+
+postRequest input route session =
+  Request
+  { reqMethod = POST
+  , reqURI = M.pack route
+  , reqLogin = Nothing
+  , reqHeaders =
+      [(M.pack "Content-Type", M.pack "application/json")] ++
+      case session of
+        Just sid -> [(M.pack "session", M.pack sid)]
+        Nothing -> []
+  , reqWithCredentials = False
+  , reqData = StringData $ M.pack $ LBS.toString $ encode input
+  }
+
 post ::
      (ToJSON a, FromJSON b)
   => a
@@ -25,28 +53,14 @@ post ::
   -> Maybe String
   -> IO (Either String (AppRes b))
 post input route session = do
-  response <- xhrByteString req
+  response <- xhrByteString (postRequest input route session)
   let payload = contents response
   let statusCode = status response
-  pure $ parseAppReqContent statusCode payload
-  where
-    req =
-      Request
-      { reqMethod = POST
-      , reqURI = M.pack route
-      , reqLogin = Nothing
-      , reqHeaders =
-          [(M.pack "Content-Type", M.pack "application/json")] ++
-          case session of
-            Just sid -> [(M.pack "session", M.pack sid)]
-            Nothing -> []
-      , reqWithCredentials = False
-      , reqData = StringData $ M.pack $ LBS.toString $ encode input
-      }
+  pure $ parseResponse statusCode payload
 
-parseAppReqContent ::
+parseResponse ::
      (FromJSON a) => Int -> Maybe BS.ByteString -> Either String (AppRes a)
-parseAppReqContent code content =
+parseResponse code content =
   case content of
     Just a -> helper code a
     Nothing -> helper code (BSC.pack "")

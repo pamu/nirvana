@@ -23,6 +23,7 @@ dependencies:
 - ghcjs-base
 - bytestring
 - utf8-string
+- validation
 
 library:
   source-dirs: src

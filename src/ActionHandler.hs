@@ -21,11 +21,14 @@ handle (UpdateUserPassword userPassword) m =
   m {userCredentials = (userCredentials m) {password = userPassword}} <#
   pure NoOp
 handle LoginUser m =
-  m {showLoader = True} <#
-  (do value <- login (userCredentials m)
-      pure HideLoader)
+  onShowLoader m <# do
+    _ <- login (userCredentials m)
+    pure HideLoader
 handle (ShowDailog msg) m = m {showDailog = Just msg} <# pure NoOp
 handle HideDialog m = m {showDailog = Nothing} <# pure NoOp
 handle ShowLoader m = m {showLoader = True} <# pure NoOp
 handle HideLoader m = m {showLoader = False} <# pure NoOp
 handle _ m = noEff m
+
+onShowLoader :: Model -> Model
+onShowLoader m = m {showLoader = True}

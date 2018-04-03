@@ -1,4 +1,4 @@
-stack build
+stack build --fast
 mkdir -p html-src
 rm -rf html-src/*.js
 cp -n $(stack path --local-install-root)/bin/nirvana.jsexe/*.html html-src/
