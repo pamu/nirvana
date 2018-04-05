@@ -27,7 +27,7 @@ mainHolder (m :: Model) inner =
     , div_
         [ class_ $
           MS.pack $
-          "modal modal-sm " ++ (maybe "" (const "active") $ showDailog m)
+          "modal modal-sm " ++ (maybe "" (const "active") $ dialogMsg m)
         ]
         [ div_
             [class_ "modal-container", textProp "role" "document"]
@@ -45,7 +45,7 @@ mainHolder (m :: Model) inner =
                 [class_ "modal-body"]
                 [ div_
                     [class_ "content"]
-                    [text $ MS.pack $ maybe "" id $ showDailog m]
+                    [text $ MS.pack $ maybe "" id $ dialogMsg m]
                 ]
             ]
         ]

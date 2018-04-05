@@ -6,6 +6,7 @@ import Domain.SessionId
 import Domain.UserCredentials
 import Domain.UserEmail
 import Domain.UserPassword
+import Network.Pot
 
 data Action
   = HandleURI URI
@@ -13,11 +14,8 @@ data Action
   | UpdateUserEmail UserEmail
   | UpdateUserPassword UserPassword
   | LoginUser
-  | UserLoginSuccess SessionId
-  | UserLoginFailure String
+  | OnLoginUser (Pot SessionId)
   | ShowDailog String
   | HideDialog
-  | ShowLoader
-  | HideLoader
   | NoOp
   deriving (Show, Eq)

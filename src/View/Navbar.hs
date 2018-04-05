@@ -14,12 +14,13 @@ import Miso
 import Miso.String (MisoString)
 import qualified Miso.String as S
 import Model
+import Network.Pot
 import Routes
 import Servant.API
 
 navbarItem :: String -> String -> Model -> View Action
 navbarItem name href model =
-  if (isJust $ userSession model)
+  if (not $ isEmpty $ loggedInUserSession model)
     then div_ [] []
     else div_
            []

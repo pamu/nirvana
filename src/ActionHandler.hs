@@ -8,7 +8,7 @@ import qualified Data.Map as Map
 import Domain.UserCredentials
 import Domain.UserEmail
 import Domain.UserPassword
-import Network.Auth
+import Network.API
 
 handle :: Action -> Model -> Effect Action Model
 handle (HandleURI u) m = m {uri = u} <# pure NoOp
@@ -22,28 +22,10 @@ handle (UpdateUserPassword userPassword) m =
   m {userCredentials = (userCredentials m) {password = userPassword}} <#
   pure NoOp
 handle LoginUser m =
-  onShowLoader m <# do
-    sessionId <- login (userCredentials m)
-    _ <- putStrLn $ show sessionId
-    let action = either UserLoginFailure UserLoginSuccess sessionId
-    pure action
-handle (UserLoginSuccess sessionId) m =
-  m {userSession = Just sessionId} <# do pure HideLoader
-handle (UserLoginFailure msg) m =
-  m {serverError = Just msg, showDailog = Just msg} <# do
-    _ <- putStrLn "failure occurred."
-    pure HideLoader
-handle (ShowDailog msg) m = m {showDailog = Just msg} <# pure NoOp
-handle HideDialog m =
-  m {showDailog = Nothing} <# do
-    _ <- putStrLn "hide dialog!"
-    pure NoOp
-handle ShowLoader m = m {showLoader = True} <# pure NoOp
-handle HideLoader m = m {showLoader = False} <# pure NoOp
+  m <# do
+    pot <- login (userCredentials m)
+    pure $ OnLoginUser pot
+handle (OnLoginUser pot) m = m {loggedInUserSession = pot} <# pure NoOp
+handle (ShowDailog msg) m = m {dialogMsg = Just msg} <# pure NoOp
+handle HideDialog m = m {dialogMsg = Nothing} <# pure NoOp
 handle _ m = noEff m
-
-onShowLoader :: Model -> Model
-onShowLoader m = m {showLoader = True}
-
-resetErrors :: Model -> Model
-resetErrors m = m {validationErrors = Map.fromList [], serverError = Nothing}
