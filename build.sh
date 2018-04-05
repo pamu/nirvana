@@ -1,3 +1,4 @@
+stack clean
 stack build --fast
 mkdir -p html-src
 rm -rf html-src/*.js

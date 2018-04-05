@@ -13,7 +13,7 @@ import Domain.CourseId
 import Miso
 import Miso.String
 import Model
-import Network.ServerAPI
+import Network.ServerRoutes
 import Routes
 import Servant.API
 
@@ -32,5 +32,7 @@ login credentials = do
   let result =
         case value of
           Left str -> Left str
-          Right _ -> Right $ SessionId {id = ""}
+          Right (BadRequest _) -> Left "bad request"
+          Right (InternalServerError msg) -> Left msg
+          Right (Ok sessionId) -> Right sessionId
   pure result

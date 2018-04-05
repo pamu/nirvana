@@ -1,6 +1,7 @@
 module Model where
 
 import qualified Data.Map as Map
+import Domain.SessionId
 import Domain.UserCredentials
 import Domain.UserEmail
 import Domain.UserPassword
@@ -10,7 +11,7 @@ import qualified Miso.String as S
 
 data Model = Model
   { uri :: URI
-  , userSession :: Maybe String
+  , userSession :: Maybe SessionId
   , showLoader :: Bool
   , showDailog :: Maybe String
   , userCredentials :: UserCredentials
