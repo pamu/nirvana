@@ -20,7 +20,7 @@ import Servant.API
 
 navbarItem :: String -> String -> Model -> View Action
 navbarItem name href model =
-  if (not $ isEmpty $ loggedInUserSession model)
+  if (isEmpty $ loggedInUserSession model)
     then div_ [] []
     else div_
            []

@@ -7,7 +7,7 @@ loginURL :: String
 loginURL = baseURL ++ "/login"
 
 signUpURL :: String
-signUpURL = baseURL ++ "/signup"
+signUpURL = baseURL ++ "/signUp"
 
 forgotPassword :: String
 forgotPassword = baseURL ++ "/forgotpassword"

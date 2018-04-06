@@ -10,6 +10,8 @@ module View.SignUpPageComponent where
 import Action
 import Data.Proxy
 import Domain.CourseId
+import Domain.UserEmail
+import Domain.UserPassword
 import Miso
 import Miso.String
 import Model
@@ -35,25 +37,53 @@ signUpForm model =
     []
     [ div_
         [class_ "form-group"]
-        [ label_ [class_ "form-label"] [text "Name"]
-        , input_ [class_ "form-input", type_ "text"]
+        [ label_ [class_ "form-label"] [text "First Name"]
+        , input_
+            [ class_ "form-input"
+            , type_ "text"
+            , onChange UpdateUserSignUpFirstName
+            ]
+        ]
+    , div_
+        [class_ "form-group"]
+        [ label_ [class_ "form-label"] [text "Last Name"]
+        , input_
+            [ class_ "form-input"
+            , type_ "text"
+            , onChange UpdateUserSignUpLastName
+            ]
         ]
     , div_
         [class_ "form-group"]
         [ label_ [class_ "form-label"] [text "Email"]
-        , input_ [class_ "form-input", type_ "text"]
+        , input_
+            [ class_ "form-input"
+            , type_ "text"
+            , onChange (UpdateUserSignUpEmail . UserEmail)
+            ]
         ]
     , div_
         [class_ "form-group"]
         [ label_ [class_ "form-label"] [text "Password"]
-        , input_ [class_ "form-input", type_ "password"]
+        , input_
+            [ class_ "form-input"
+            , type_ "password"
+            , onChange (UpdateUserSignUpPassword . UserPassword)
+            ]
         ]
     , div_
         [class_ "form-group"]
         [ label_ [class_ "form-label"] [text "Repeat Password"]
-        , input_ [class_ "form-input", type_ "password"]
+        , input_
+            [ class_ "form-input"
+            , type_ "password"
+            , onChange (UpdateUserSignUpRepeatPassword . UserPassword)
+            ]
         ]
     , div_
         [class_ "form-group"]
-        [button_ [class_ "btn btn-primary"] [text "Sign Up"]]
+        [ button_
+            [class_ "btn btn-primary", onClick SignUpUser]
+            [text "Sign Up"]
+        ]
     ]

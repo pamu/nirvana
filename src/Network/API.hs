@@ -20,6 +20,7 @@
   import Prelude hiding (id)
   
   import qualified Domain.UserCredentials as UC
+  import qualified Domain.UserSignUpInfo as US
   
   import Domain.SessionId
   import Network.AppRequests
@@ -31,6 +32,15 @@
   login credentials = do
     (value :: (Either String (Pot SessionId))) <-
       (post credentials loginURL Nothing)
+    let result =
+          case value of
+            Left msg -> error ("Parsing failed. " ++ show msg)
+            Right pot -> pot
+    pure result
+  
+  signUp :: US.UserSignUpInfo -> IO (Pot String)
+  signUp signUpInfo = do
+    (value :: (Either String (Pot String))) <- (post signUpInfo signUpURL Nothing)
     let result =
           case value of
             Left msg -> error ("Parsing failed. " ++ show msg)
