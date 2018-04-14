@@ -12,4 +12,4 @@ import Miso
 import Miso.String (MisoString)
 
 marginTop :: M.Map MisoString MisoString
-marginTop = M.fromList [("marginTop", "10%")]
+marginTop = M.fromList [("marginTop", "16%")]

@@ -14,7 +14,7 @@ import Data.Map
 import GHC.Generics
 
 newtype ValidationErrors =
-  ValidationError [Map String [String]]
+  ValidationError (Map String [String])
   deriving (Eq, Show, Generic, FromJSON, ToJSON)
 
 data Pot a

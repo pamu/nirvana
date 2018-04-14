@@ -27,10 +27,10 @@ mainHolder (m :: Model) inner =
     , div_
         [ class_ $
           MS.pack $
-          "modal modal-md " ++ (maybe "" (const "active") $ dialogMsg m)
+          "modal modal-sm " ++ (maybe "" (const "active") $ dialogMsg m)
         ]
         [ div_
-            [class_ "modal-container", textProp "role" "document"]
+            [class_ "modal-container"]
             [ div_
                 [class_ "modal-header"]
                 [ div_
@@ -46,6 +46,15 @@ mainHolder (m :: Model) inner =
                 [ div_
                     [class_ "content"]
                     [text $ MS.pack $ maybe "" id $ dialogMsg m]
+                ]
+            , div_
+                [class_ "modal-footer"]
+                [ a_
+                    [ class_ "btn btn-link"
+                    , textProp "aria-label" "Close"
+                    , onClick HideDialog
+                    ]
+                    [text "Close"]
                 ]
             ]
         ]

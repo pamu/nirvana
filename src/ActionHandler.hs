@@ -11,6 +11,7 @@ import Domain.UserPassword
 import qualified Domain.UserSignUpInfo as US
 import Network.API
 import Network.Pot
+import qualified Routes as R
 
 handle :: Action -> Model -> Effect Action Model
 handle (HandleURI u) m = m {uri = u} <# pure NoOp
@@ -44,7 +45,7 @@ handle SignUpUser m =
     pot <- signUp (userSignUpInfo m)
     pure $ OnSignUpUser pot
 handle (OnSignUpUser pot) m =
-  (handlePot pot m) {userSignUpStatus = pot} <# pure NoOp
+  (handlePot pot m) {userSignUpStatus = pot} <# pure R.gotoLoginPage
 handle (ShowDailog msg) m = m {dialogMsg = Just msg} <# pure NoOp
 handle HideDialog m = m {dialogMsg = Nothing} <# pure NoOp
 handle _ m = noEff m
@@ -52,3 +53,4 @@ handle _ m = noEff m
 --Internal functions
 handlePot :: Pot a -> Model -> Model
 handlePot (Failed msg) m = m {dialogMsg = Just msg}
+handlePot _ m = m
